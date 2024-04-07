@@ -1,18 +1,6 @@
-const person: {
-  name: string;
-  age: number;
-  hobbies: string[];
-  data: [number, string];
-} = {
-  name: "Taro",
-  age: 29,
-  hobbies: ["soccer", "playing piano"],
-  data: [1000, "admin"],
-};
-
-enum Status {
-  START,
-  STOP,
+function fn(num1: number, num2: number, cb: (num: number) => void) {
+  const result = num1 + num2;
+  return cb(result);
 }
-person.data.push("hoge");
-console.log(person);
+
+console.log(fn(1, 3, (result) => result));

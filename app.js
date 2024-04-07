@@ -1,13 +1,5 @@
-var person = {
-    name: "Taro",
-    age: 29,
-    hobbies: ["soccer", "playing piano"],
-    data: [1000, "admin"],
-};
-var Status;
-(function (Status) {
-    Status[Status["START"] = 0] = "START";
-    Status[Status["STOP"] = 1] = "STOP";
-})(Status || (Status = {}));
-person.data.push("hoge");
-console.log(person);
+function fn(num1, num2, cb) {
+    var result = num1 + num2;
+    return cb(result);
+}
+console.log(fn(1, 3, function (result) { return result; }));
