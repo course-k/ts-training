@@ -1,12 +1,20 @@
-let hoge: unknown;
-let piyo: any;
+class Animal {
+  private favorite: string[] = [];
+  constructor(
+    private readonly animalId: string,
+    public type: string,
+    public crying: string
+  ) {}
+  greeting(this: Animal) {
+    console.log(`${this.crying}! 私は${this.type}です。`);
+  }
+  addFavorite(this: Animal, fav: string) {
+    this.favorite.push(fav);
+  }
+  printFav(this: Animal) {
+    console.log(this.favorite);
+  }
+}
 
-hoge = 1;
-piyo = 2;
-
-hoge = "jp";
-piyo = "en";
-
-let str = "str";
-
-str = piyo;
+const dog = new Animal("001", "犬", "わんわん");
+dog.greeting();
