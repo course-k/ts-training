@@ -1,9 +1,16 @@
 "use strict";
 class Animal {
-    constructor(animalId, type, crying) {
+    get latestAddress() {
+        return this.address;
+    }
+    set latestAddress(address) {
+        this.address = address;
+    }
+    constructor(animalId, type, crying, address) {
         this.animalId = animalId;
         this.type = type;
         this.crying = crying;
+        this.address = address;
         this.favorite = [];
     }
     greeting() {
@@ -16,5 +23,28 @@ class Animal {
         console.log(this.favorite);
     }
 }
-const dog = new Animal("001", "犬", "わんわん");
-dog.greeting();
+class Person {
+    constructor(name) {
+        this.name = name;
+    }
+}
+class Japanese extends Person {
+    constructor(name) {
+        super(name);
+    }
+    greeting() {
+        console.log(`こんにちは、私は${this.name}です。`);
+    }
+}
+class American extends Person {
+    constructor(name) {
+        super(name);
+    }
+    greeting() {
+        console.log(`Hi, I'm ${this.name}.`);
+    }
+}
+const taro = new Japanese("Taro");
+taro.greeting();
+const john = new American("John");
+john.greeting();

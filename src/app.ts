@@ -1,9 +1,16 @@
 class Animal {
-  private favorite: string[] = [];
+  protected favorite: string[] = [];
+  get latestAddress() {
+    return this.address;
+  }
+  set latestAddress(address: string) {
+    this.address = address;
+  }
   constructor(
     private readonly animalId: string,
     public type: string,
-    public crying: string
+    public crying: string,
+    private address: string
   ) {}
   greeting(this: Animal) {
     console.log(`${this.crying}! 私は${this.type}です。`);
@@ -16,5 +23,33 @@ class Animal {
   }
 }
 
-const dog = new Animal("001", "犬", "わんわん");
-dog.greeting();
+abstract class Person {
+  constructor(public name: string) {}
+  abstract greeting(this: Person): void;
+}
+
+class Japanese extends Person {
+  constructor(name: string) {
+    super(name);
+  }
+
+  greeting(this: Person): void {
+    console.log(`こんにちは、私は${this.name}です。`);
+  }
+}
+
+class American extends Person {
+  constructor(name: string) {
+    super(name);
+  }
+
+  greeting(this: Person): void {
+    console.log(`Hi, I'm ${this.name}.`);
+  }
+}
+
+const taro = new Japanese("Taro");
+taro.greeting();
+
+const john = new American("John");
+john.greeting();
