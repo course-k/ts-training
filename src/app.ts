@@ -1,16 +1,15 @@
-type fn = (s: string) => void;
-let greeting: fn;
-greeting = (name: string) => {
-  console.log(`Hi, ${name}`);
-};
-greeting("John");
-
-interface anotherFn {
-  (s: string): void;
+interface Animal {
+  readonly name: string;
+  house?: string;
+  crying(cry: string): void;
 }
-let anotherGreeting: anotherFn;
-anotherGreeting = (name: string) => {
-  console.log(`Hello, ${name}`);
-};
 
-anotherGreeting("Kevin");
+class Dog implements Animal {
+  constructor(public name: string) {}
+  crying(cry: string): void {
+    console.log(cry);
+  }
+  playing(): string {
+    return "お散歩";
+  }
+}
