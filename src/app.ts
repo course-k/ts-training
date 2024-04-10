@@ -3,26 +3,16 @@ interface Animal {
   crying(cry: string): void;
 }
 
-let dog: Animal;
-dog = {
-  name: "pochi",
-  crying(cry: string) {
+class Dog implements Animal {
+  constructor(public name: string) {}
+  crying(cry: string): void {
     console.log(cry);
-  },
-};
+  }
+  walking() {
+    console.log("お散歩中です。");
+  }
+}
 
-dog.crying("わんわん");
-
-type AnotherAnimal = {
-  name: string;
-  crying(cry: string): void;
-};
-
-let cat: AnotherAnimal;
-cat = {
-  name: "tama",
-  crying(cry: string) {
-    console.log(cry);
-  },
-};
-cat.crying("にゃー");
+const pochi = new Dog("pochi");
+pochi.crying("わん！");
+pochi.walking();
