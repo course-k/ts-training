@@ -29,12 +29,23 @@ abstract class Person {
 }
 
 class Japanese extends Person {
-  constructor(name: string) {
+  private static instance: Japanese;
+
+  private constructor(name: string) {
     super(name);
   }
 
   greeting(this: Person): void {
     console.log(`こんにちは、私は${this.name}です。`);
+  }
+
+  static getInstance() {
+    if (this.instance) {
+      return this.instance;
+    } else {
+      this.instance = new Japanese("Taro");
+      return this.instance;
+    }
   }
 }
 
@@ -47,9 +58,8 @@ class American extends Person {
     console.log(`Hi, I'm ${this.name}.`);
   }
 }
-
-const taro = new Japanese("Taro");
-taro.greeting();
+const taro = Japanese.getInstance();
 
 const john = new American("John");
 john.greeting();
+taro.greeting();
