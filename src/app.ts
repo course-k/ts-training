@@ -1,5 +1,5 @@
 interface Animal {
-  name: string;
+  readonly name: string;
   crying(cry: string): void;
 }
 
@@ -13,6 +13,6 @@ class Dog implements Animal {
   }
 }
 
-const pochi = new Dog("pochi");
-pochi.crying("わん！");
-pochi.walking();
+let pochi: Animal;
+pochi = new Dog("pochi");
+pochi.name = "taro";
