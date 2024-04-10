@@ -1,6 +1,10 @@
-interface Animal {
+interface Animal extends Play {
   readonly name: string;
   crying(cry: string): void;
+}
+
+interface Play {
+  playing(): string;
 }
 
 class Dog implements Animal {
@@ -8,11 +12,11 @@ class Dog implements Animal {
   crying(cry: string): void {
     console.log(cry);
   }
-  walking() {
-    console.log("お散歩中です。");
+  playing(): string {
+    return "お散歩";
   }
 }
 
 let pochi: Animal;
 pochi = new Dog("pochi");
-pochi.name = "taro";
+console.log(pochi.playing());
