@@ -8,49 +8,38 @@ type Normal = {
   department: string;
 };
 
-type UnionType = Admin & Normal;
+type UnionType = Admin | Normal;
 
-let ut: UnionType;
-ut = {
-  name: "Taro",
-  privilege: ["Editor"],
-  department: "Sales",
+const printInfo = (ut: UnionType) => {
+  if ("privilege" in ut) {
+    console.log(ut.privilege);
+  }
 };
-
-console.log(ut);
 
 type NumStr = number | string;
-type BoolStr = boolean | string;
-type CombinedType = NumStr & BoolStr;
-
-let ct: CombinedType;
-ct = "hoge";
-console.log(ct);
-
-interface AdminIf {
-  name: string;
-  pirivlege: string[];
-}
-
-interface NormalIf {
-  name: string;
-  department: string;
-}
-
-type UnionTypeIf = Admin & Normal;
-
-let utIf: UnionTypeIf;
-ut = {
-  name: "Taro",
-  privilege: ["Editor"],
-  department: "Sales",
+const add = (a: NumStr, b: NumStr) => {
+  if (typeof a === "number" || typeof b === "number") {
+    return a.toString() + b.toString();
+  }
+  return a + b;
 };
 
-interface UnionIf extends Admin, Normal {}
+class Animals {
+  crying() {
+    console.log("鳴き声");
+  }
+}
 
-let uIf: UnionIf;
-uIf = {
-  name: "hoge",
-  privilege: ["Editor"],
-  department: "Sales",
+class Birds extends Animals {
+  flying() {
+    console.log("飛んでる");
+  }
+}
+
+type UnionClass = Animals | Birds;
+
+const printBirds = (uc: UnionClass) => {
+  if (uc instanceof Birds) {
+    uc.crying();
+  }
 };
