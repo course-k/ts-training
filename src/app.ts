@@ -1,18 +1,6 @@
-type StrNum = string | number;
-
-function add(a: string, b: string): string;
-function add(a: string, b: number): string;
-function add(a: number, b: string): string;
-function add(a: number, b: number): number;
-function add(a: StrNum, b: StrNum) {
-  if (typeof a === "string" || typeof b === "string") {
-    return a.toString() + b.toString();
-  } else {
-    return a + b;
-  }
+function mergeObj<T, U>(obj1: T, obj2: U) {
+  return { ...obj1, ...obj2 };
 }
 
-const result1 = add("Hellor ", "world");
-const result2 = add("Hellor ", 100);
-const result3 = add(200, "world");
-const result4 = add(200, 100);
+const mergedObj = mergeObj({ name: "tom" }, { age: 20 });
+console.log(mergedObj);
