@@ -1,21 +1,18 @@
-interface Birds {
-  type: "Birds";
-  flyingSpeed: number;
-}
+type StrNum = string | number;
 
-interface Horse {
-  type: "Horse";
-  runningSpeed: number;
-}
-
-type Animal = Birds | Horse;
-
-function print(animal: Animal) {
-  switch (animal.type) {
-    case "Birds":
-      animal.flyingSpeed = 100;
-      break;
-    case "Horse":
-      animal.runningSpeed;
+function add(a: string, b: string): string;
+function add(a: string, b: number): string;
+function add(a: number, b: string): string;
+function add(a: number, b: number): number;
+function add(a: StrNum, b: StrNum) {
+  if (typeof a === "string" || typeof b === "string") {
+    return a.toString() + b.toString();
+  } else {
+    return a + b;
   }
 }
+
+const result1 = add("Hellor ", "world");
+const result2 = add("Hellor ", 100);
+const result3 = add(200, "world");
+const result4 = add(200, 100);
