@@ -1,9 +1,14 @@
-function Logger(target: Function) {
-  console.log("decorator calling...");
-  console.log(target);
+function WithTemplate(template: string, hookId: string) {
+  return function (target: any) {
+    const element = document.getElementById(hookId);
+    const t = new target();
+    if (element) {
+      element.innerHTML = template;
+      element.querySelector("h1")!.textContent = t.name;
+    }
+  };
 }
-
-@Logger
+@WithTemplate("<h1>Hello world</h1>", "body")
 class Person {
   constructor(public name: string = "max") {
     console.log("Person creating...");
