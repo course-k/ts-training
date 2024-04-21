@@ -1,52 +1,56 @@
-interface ValidatorConfig {
-  [prop: string]: {
-    [validatableProp: string]: string[];
+const Autobind = (
+  _target: any,
+  _propName: string,
+  descriptor: PropertyDescriptor
+) => {
+  const orgMethod = descriptor.value;
+  const adjDescriptor: PropertyDescriptor = {
+    configurable: true,
+    get() {
+      const boundFn = orgMethod.bind(this);
+      return boundFn;
+    },
   };
-}
-const registeredValidators: ValidatorConfig = {};
+  return adjDescriptor;
+};
 
-function Required(target: any, name: string) {
-  registeredValidators[target.constructor.name] = {
-    [name]: ["required"],
-  };
-}
+class ProjectInput {
+  templalteEl: HTMLTemplateElement;
+  hostEl: HTMLDivElement;
+  formEl: HTMLFormElement;
 
-function PositiveNumber(target: any, name: string) {
-  registeredValidators[target.constructor.name] = {
-    [name]: ["positive"],
-  };
-}
+  titleEl: HTMLInputElement;
+  descEl: HTMLInputElement;
+  manDayEl: HTMLInputElement;
 
-function Validate(obj:any) {
-  const objValidatorConfig = registeredValidators[obj.constructor.name];
-  if(!objValidatorConfig){
-    return true
+  constructor() {
+    this.templalteEl = document.querySelector("#project-input")!;
+    this.hostEl = document.querySelector("#app")!;
+    const importedNode = document.importNode(this.templalteEl.content, true);
+    this.formEl = importedNode.firstElementChild as HTMLFormElement;
+    this.formEl.id = "user-input";
+
+    this.titleEl = this.formEl.querySelector("#title") as HTMLInputElement;
+    this.descEl = this.formEl.querySelector("#description") as HTMLInputElement;
+    this.manDayEl = this.formEl.querySelector("#manday") as HTMLInputElement;
+
+    this.addEvent();
+    this.attach();
   }
 
-  for (const validator in Object.values(objValidatorConfig) ){
-    switch(validator) {
-      case
-    }
+  @Autobind
+  private submitHandler(event: Event) {
+    event.preventDefault();
+    console.log(this.titleEl.value);
+  }
+
+  private addEvent() {
+    this.formEl.addEventListener("submit", this.submitHandler);
+  }
+
+  private attach() {
+    this.hostEl.insertAdjacentElement("afterbegin", this.formEl);
   }
 }
 
-class Course {
-  @Required
-  title: string;
-  @PositiveNumber
-  @Required
-  price: number;
-  constructor(title: string, price: number) {
-    this.title = title;
-    this.price = price;
-  }
-}
-
-const form = document.querySelector("form")!;
-form.addEventListener("submit", (ev) => {
-  ev.preventDefault();
-  const titleEl = form.querySelector("#title") as HTMLInputElement;
-  const priceEl = form.querySelector("#price") as HTMLInputElement;
-  const course = new Course(titleEl.value, +priceEl.value);
-  console.log(course);
-});
+const pjInput = new ProjectInput();
